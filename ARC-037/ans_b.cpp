@@ -1,7 +1,9 @@
-#include<bits/stdc++.h>
+#include <vector>
+#include <string.h>
+#include <iostream>
 using namespace std;
 #define rep(i,n) for(int i=0; i<(n); ++i)
-using Graph = vector<vector<int>>;
+using Graph = vector<vector<int> >;
  
 vector<bool> seen;
 bool dfs(const Graph &G, int v, int p=-1){
