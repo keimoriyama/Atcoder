@@ -15,9 +15,9 @@ int main(int argc, char *argv[])
   right = gx;
   while(left <= right){
     mid = (left + right)/2;
-    grad = gy/(gx-mid);
-    seppen = -(grad * mid);
-    y = (grad * gx) + seppen;
+    grad = sy/(sx-mid);
+    seppen = grad * mid;
+    y = -(grad * gx) + seppen;
     if(y == gy){
       break;
     }
