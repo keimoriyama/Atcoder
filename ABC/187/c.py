@@ -15,13 +15,11 @@ for i in range(N):
 
 for S in S_list:
     S = check_str(S)
-    for trg_S in S_list:
-        if S == trg_S and not flag:
-            if S[0] == "!":
-                S.replace("!", "")
-            print(S)
-            flag = True
-            break
+    if S in S_list:
+        S.replace("!", "")
+        print(S)
+        flag = True
+        break
 
 if not flag:
     print("satisfiable")
