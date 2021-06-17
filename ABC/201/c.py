@@ -1,6 +1,5 @@
 S = input()
 
-
 mem = []
 for i in range(10):
     if S[i] == 'o':
