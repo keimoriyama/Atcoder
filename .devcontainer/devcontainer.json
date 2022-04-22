@@ -1,0 +1,10 @@
+{
+  "name": "AtCoder",
+  "dockerFile": "Dockerfile",
+  "settings": {
+    "[python]": {
+      "editor.formatOnSave": true
+    }
+  },
+  "extensions": ["ms-python.python", "ms-python.vscode-pylance"]
+}
