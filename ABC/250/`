@@ -1,0 +1,14 @@
+N, Q = map(int, input().split())
+a = [i for i in range(1, N+1)]
+print(a)
+for _ in range(Q):
+    x = int(input())
+    i = a.index(x)
+    if i == len(a)-1:
+        a[-2], a[-1] = a[-1], a[-2]
+    else:
+        a[i], a[i+1] = a[i+1], a[i]
+
+a = [str(i) for i in a]
+print(" ".join(a))
+
