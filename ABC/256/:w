@@ -1,0 +1,12 @@
+def search(table, i, j):
+    
+
+def main():
+    n = [int(i) for i in input().split()]
+    h = n[0:3]
+    w = n[3:6]
+    table = [0, 0, 0] * 3
+    print(h, w, table)
+
+if __name__ == "__main__":
+    main()
