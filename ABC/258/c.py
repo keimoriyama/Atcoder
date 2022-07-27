@@ -7,5 +7,7 @@ for q in range(Q):
         shift = (shift + x) % N 
     elif t == 2:
         x -= 1
-        idx = (shift + x) % N
-        print(S[idx], shift, idx)
+        idx = x - shift
+        if idx < 0:
+            idx = N + idx
+        print(S[idx])

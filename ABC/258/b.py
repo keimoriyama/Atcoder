@@ -15,18 +15,16 @@ for i in range(N):
                 token = ""
                 x, y = i, j
                 for _ in range(N):
-                    token += str(A[x][y])
+                    token += A[x][y]
                     x += d_x
                     y += d_y
                     if x < 0:
-                        x = N
+                        x = N - 1
                     if x > N - 1:
                         x = 0
                     if y < 0:
-                        y = N
+                        y = N - 1
                     if y > N - 1:
                         y = 0
-
                 ans = max(ans, int(token))
 print(ans)
-
