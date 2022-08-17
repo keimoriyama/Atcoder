@@ -12,6 +12,7 @@ def check(S):
     else:
         return False
 
+
 N = int(input())
 
 i = 0
@@ -19,7 +20,7 @@ while i < 1 << N:
     S = ""
     j = N - 1
     while j >= 0:
-        if (i & (1 << j)):
+        if i & (1 << j):
             S += ")"
         else:
             S += "("
@@ -27,4 +28,3 @@ while i < 1 << N:
     if check(S):
         print(S)
     i += 1
-
