@@ -52,28 +52,30 @@ class UnionFind:
         return "\n".join(f"{r}: {m}" for r, m in self.all_group_members().items())
 
 
+def f(x, y):
+    return x * W + y
+
+
 H, W = map(int, input().split())
 Q = int(input())
 d = [[0] * (W + 1) for _ in range(H + 1)]
 tree = UnionFind((H + 1) * (W + 1))
 for _ in range(Q):
-    q = input().split()
-    if q[0] == "1":
-        r, c = int(q[1]), int(q[2])
+    q = list(map(int, input().split()))
+    if q[0] == 1:
+        r, c = q[1] - 1, q[2] - 1
         d[r][c] = 1
-        if r - 1 > 0 and d[r - 1][c] == 1:
-            tree.union((r - 1) * c, r * c)
-        if r + 1 <= H and d[r + 1][c] == 1:
-            tree.union((r + 1) * c, r * c)
-        if c - 1 > 0 and d[r][c - 1] == 1:
-            tree.union((c - 1) * r, r * c)
-        if c + 1 <= W and d[r][c + 1] == 1:
-            tree.union((c + 1) * r, r * c)
-    elif q[0] == "2":
-        rai, cai, rbi, cbi = int(q[1]), int(q[2]), int(q[3]), int(q[4])
-        if d[rai][cai] == 0 or d[rbi][cbi] == 0:
-            print("No")
-        elif tree.same(rai * cai, rbi * cbi):
+        for i in range(-1, 2):
+            for j in range(-1, 2):
+                if not (i == 0 or j == 0):
+                    continue
+                a = r + i
+                b = c + j
+                if 0 <= a < H and 0 <= b < W and d[a][b] == 1:
+                    tree.union(f(a, b), f(r, c))
+    if q[0] == 2:
+        ra, ca, rb, cb = q[1] - 1, q[2] - 1, q[3] - 1, q[4] - 1
+        if d[ra][ca] == 1 and d[rb][cb] == 1 and tree.same(f(ra, ca), f(rb, cb)):
             print("Yes")
         else:
             print("No")
