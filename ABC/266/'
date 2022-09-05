@@ -1,0 +1,12 @@
+C = 998244353
+N = int(input())
+a = 0
+while True:
+    x = N - C * a
+    if 0 <= x < C:
+        print(x)
+        exit()
+    if x > C:
+        a -= 1
+    else:
+        a += 1
