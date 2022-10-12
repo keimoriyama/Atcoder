@@ -1,0 +1,12 @@
+N, K = map(int, input().split())
+A = list(map(int, input().split()))
+
+offset = 0
+if K > N:
+    i = K // N
+    offset = K - N * i
+    K -= N
+
+a_dict = {v: i for i, v in enumerate(A)}
+
+print(a_dict)
