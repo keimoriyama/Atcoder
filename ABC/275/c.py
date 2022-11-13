@@ -1,12 +1,10 @@
 import itertools
 
-S = []
-for _ in range(9):
-    S.append(input())
+S = [input() for _ in range(9)]
 ans = 0
-
 for i1, j1, i2, j2 in itertools.product(range(9), repeat=4):
-    if i2 > i1 and j2 >= i1 and S[i1][j1] == "#" and S[i2][j2] == "#":
+    # (i1,j1)から→↓の向きに(i2,j2)がある
+    if i2 > i1 and j2 >= j1 and S[i1][j1] == "#" and S[i2][j2] == "#":
         di = i2 - i1
         dj = j2 - j1
         i3 = i2 + dj
@@ -22,5 +20,4 @@ for i1, j1, i2, j2 in itertools.product(range(9), repeat=4):
             and S[i4][j4] == "#"
         ):
             ans += 1
-
 print(ans)
