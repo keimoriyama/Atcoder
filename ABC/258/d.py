@@ -1,15 +1,15 @@
-N, X = map(int, input().split())
-
-init = 0
-min_t = 0
-for i in range(N):
+n, x = map(int, input().split())
+init_time = 0
+min_time = 0
+for i in range(n):
     a, b = map(int, input().split())
-    init = init + a + b
+
+    init_time = init_time + a + b
     if i == 0:
-        min_t = init + b * (X - i - 1)
-    elif init > -min_t:
+        min_time = init_time + b * (x - i - 1)
+    elif init_time >= min_time:
         break
     else:
-        min_t = min(min_t, init + b * (X - i - 1))
+        min_time = min(min_time, init_time + b * (x - i - 1))
 
-print(min_t)
+print(min_time)
