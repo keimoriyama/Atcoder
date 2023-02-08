@@ -1,21 +1,14 @@
-from math import sqrt, pow
+from math import sqrt
 
 
 T = int(input())
 for _ in range(T):
     N = int(input())
-    p, q = 0, 0
-    f = False
-    i = 2
-    while i**3 <= N:
-        if N % i != 0:
-            i += 1
-            continue
-        if (N / i) % i == 0:
-            p = i
-            q = N / i / i
-        else:
-            q = i
-            p = int(sqrt(N / i))
-        break
-    print(int(p), int(q))
+    for n in range(2, N):
+        if N % n == 0:
+            break
+    if N % (n**2) == 0:
+        p, q = n, N // (n**2)
+    else:
+        p, q = round((N / n) ** 0.5), n
+    print(p, q)
