@@ -4,7 +4,6 @@ L, R = map(int, input().split())
 
 
 def calc(l, r):
-    print(l, r)
     if gcd(l, r) == 1:
         return r - l
     else:
