@@ -1,29 +1,22 @@
+from math import inf
+
 X, Y, Z = map(int, input().split())
 S = input()
 
-caps = False
-tokens = [[S[0], 1]]
-for s in S[1:]:
-    if tokens[-1][0] != s:
-        tokens.append([s, 1])
+dp = [[inf] * 2 for _ in range(len(S) + 1)]
+dp[0][0] = 0
+for i in range(len(S)):
+    s = S[i]
+    # capslockを入力した時の遷移
+    dp[i][0] = min(dp[i][0], dp[i][1] + Z)
+    dp[i][1] = min(dp[i][1], dp[i][0] + Z)
+
+    if s == "a":
+        dp[i + 1][0] = min(dp[i + 1][0], dp[i][0] + X)
+        dp[i + 1][1] = min(dp[i + 1][1], dp[i][1] + Y)
     else:
-        tokens[-1][1] += 1
-
-print(tokens)
-ans = 0
-cap_tok = "x"
-for tok in tokens:
-    t = tok[0]
-    n = int(tok[1])
-    if cap_tok != t:
-        if X * n + Z < Y * n:
-            ans += X * n + Z
-            caps = True
-            cap_tok = t
-        else:
-            ans += Y * n
-    else:
-        ans += X * n
+        dp[i + 1][0] = min(dp[i + 1][0], dp[i][0] + Y)
+        dp[i + 1][1] = min(dp[i + 1][1], dp[i][1] + X)
 
 
-print(ans)
+print(min(dp[-1][0], dp[-1][1]))
