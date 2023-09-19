@@ -30,13 +30,10 @@ fn main() {
     for i in 0..n as usize {
         let pi = p[i];
         let fi = &f[i];
-        for j in 0..i as usize {
+        for j in 0..n as usize {
             let pj = p[j];
             let fj = &f[j];
-            if (pi >= pj)
-                && (fj.is_superset(fi))
-                && (pi > pj || (fj.difference(fi).collect::<Vec<_>>().len() >= 1))
-            {
+            if (pi >= pj) && (fj.is_superset(fi)) && (pi > pj || (fj.len() > fi.len())) {
                 println!("Yes");
                 return;
             }
