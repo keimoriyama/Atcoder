@@ -9,51 +9,46 @@ use proconio::marker::Chars;
 // キュー、スタック
 // use std::collections::VecDeque;
 
-fn calc(mut s: Vec<char>, mut t: Vec<char>, reverse: bool) -> usize {
-    if reverse {
-        s.reverse();
-        t.reverse();
+fn check(s: Vec<char>, t: Vec<char>) -> bool {
+    if s.len() > t.len() {
+        return check(t, s);
     }
-    for i in 0..t.len() {
-        if i >= s.len() {
-            return s.len();
-        }
-        if s[i] != t[i] {
-            return i;
+    if s.len() < t.len() - 1 {
+        return false;
+    }
+    let mut i = 0;
+    let mut j = 0;
+    let mut d = 0;
+    while i < s.len() {
+        if s[i] == t[j] {
+            i += 1;
+            j += 1;
+        } else {
+            d += 1;
+            if d > 1 {
+                return false;
+            }
+            if s.len() == t.len() {
+                i += 1
+            }
+            j += 1
         }
     }
-    return t.len();
+    return true;
 }
 
 fn main() {
     input! {
         n: usize,
-        t: Chars,
-        s: [Chars;n]
+        mut t: Chars,
     }
-    let mut a = Vec::new();
+    let mut ans = Vec::new();
     for i in 0..n {
-        a.push(calc(s[i].clone(), t.clone(), false));
-    }
-    let mut b = Vec::new();
-    for i in 0..n {
-        b.push(calc(s[i].clone(), t.clone(), true));
-    }
-    let mut ans: Vec<usize> = Vec::new();
-    for i in 0..n {
-        let si = s[i].clone();
-        let mut flag = false;
-        if a[i] == si.len() && si.len() == t.len() {
-            flag = true
-        } else if a[i] + b[i] >= si.len() && si.len() + 1 == t.len() {
-            flag = true
-        } else if a[i] + b[i] >= si.len() - 1 && si.len() - 1 == t.len() {
-            flag = true
-        } else if a[i] + b[i] == si.len() - 1 && si.len() == t.len() {
-            flag = true
+        input! {
+            s: Chars,
         }
-        if flag {
-            ans.push(i + 1)
+        if check(s.clone(), t.clone()) {
+            ans.push(i + 1);
         }
     }
     println!("{}", ans.len());
