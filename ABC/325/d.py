@@ -1,31 +1,31 @@
 import heapq
 
 N = int(input())
-T, D = [], []
+D = []
 for _ in range(N):
     t, d = map(int, input().split())
-    T.append(t)
-    D.append((d, d + t))
+    D.append([t, d + t])
 D.sort()
 
 it, ans = 0, 0
-q = []
-heapq.heapify(q)
-print(D)
-for i in range(N):
-    print(q, it, i)
-    # 印刷機の範囲に印字されていない商品がない
-    if len(q) == 0:
-        if it == N:
-            break
-        i = D[it][0]
-    while it < N and D[it][0] == i:
-        q.append(D[it][1])
-        it += 1
-    while len(q) > 0 and q[-1] < i:
-        q.pop()
-    if len(q) > 0:
-        q.pop()
+que = []
+heapq.heapify(que)
+t = 0
+idx = 0
+ans = 0
+while idx < N or que:
+    while idx < N and D[idx][0] <= t:
+        heapq.heappush(que, D[idx][1])
+        idx += 1
+    while que and que[0] < t:
+        heapq.heappop(que)
+
+    if que:
         ans += 1
+        heapq.heappop(que)
+    if not que and idx < N:
+        t = D[idx][0]
+    else:
+        t += 1
 
 print(ans)
