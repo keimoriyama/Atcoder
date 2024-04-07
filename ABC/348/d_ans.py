@@ -13,11 +13,11 @@ for i in range(H):
         if aij == "S":
             sx = i
             sy = j
-            A[i].append(-1)
+            A[i].append(0)
         elif aij == "T":
             ex = i
             ey = j
-            A[i].append(-1)
+            A[i].append(0)
         elif aij == ".":
             A[i].append(0)
         elif aij == "#":
@@ -25,35 +25,48 @@ for i in range(H):
 
 N = int(input())
 r, c, e = [], [], []
+E = [[-1] * W for _ in range(H)]
 for _ in range(N):
     ri, ci, ei = map(int, input().split())
-    r.append(ri)
-    c.append(ci)
+    r.append(ri - 1)
+    c.append(ci - 1)
     e.append(ei)
+    E[ri - 1][ci - 1] = ei
 
+used = [[False] * W for _ in range(H)]
+q = deque()
+q.append((sx, sy))
+used[sx][sy] = True
 
-def bfs(x, y):
-    q = deque()
-    q.append((x, y))
-    dist = [[10**100] * W for _ in range(H)]
-    while q:
-        x, y = q.popleft()
-        for dx, dy in zip(Dx, Dy):
-            xi = x + dx
-            yi = y + dy
-            if xi < 0 or xi >= H or yi < 0 or yi >= W:
+dist = [[-1 for _ in range(W)] for _ in range(H)]
+dist[sy][sx] = 0
+
+while q:
+    x, y = q.popleft()
+    if E[x][y] <= dist[x][y]:
+        continue
+    dist[x][y] = E[x][y]
+    queue = deque()
+    queue.append((x, y))
+    while queue:
+        xi, yi = queue.popleft()
+        for dy, dx in [[0, 1], [1, 0], [-1, 0], [0, -1]]:
+            ny = yi + dy
+            nx = xi + dx
+            if not (0 <= nx < H and 0 <= ny < W):
                 continue
-            if A[xi][yi] == -2:
+            if A[nx][ny] == -2:
                 continue
-            if dist[xi][yi] > dist[x][y] + 1:
-                dist[xi][yi] = dist[x][y] + 1
-                q.appendleft((xi, yi))
-    return dist
+            if dist[nx][ny] >= dist[xi][yi] - 1:
+                continue
+            dist[nx][ny] = dist[xi][yi] - 1
+            queue.append((nx, ny))
+            if not used[nx][ny]:
+                used[nx][ny] = True
+                q.append((nx, ny))
 
 
-isReachable = [[False] * N for _ in range(N)]
-for i in range(N):
-    dist = bfs(r[i], c[i])
-    for j in range(N):
-        if dist[r[j]][c[j]] <= e[i]:
-            isReachable[i][j] = True
+if dist[ex][ey] == -1:
+    print("No")
+else:
+    print("Yes")
